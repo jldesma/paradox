@@ -11,7 +11,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/api/blockchain")
-@CrossOrigin(origins = ["https://mint.followstoryline.io"])
+@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class ParadoxController {
     val CONTRACT_ADDRESS = "tp1jpuk5d0auylc7c7dkmds0auzadt7d39tw85fkudzs94y53mavvxs0jg5sr"
     val client = PbClient("pio-testnet-1", URI("grpcs://grpc.test.provenance.io:443"), GasEstimationMethod.MSG_FEE_CALCULATION)
