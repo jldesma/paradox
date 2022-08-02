@@ -24,6 +24,11 @@ class ParadoxController {
         return gson.fromJson(result, CurrentAskForTokenResponse::class.java);
     }
 
+    @GetMapping("/Test/{token_id}")
+    fun Test(@PathVariable token_id: String): String {
+        return "Tomas"
+    }
+
     @GetMapping("/GetByOwner/{address}")
     fun GetByOwner(@PathVariable address:String): Array<MyMintMsg> {
         val result =  bcQuery(ByteString.copyFromUtf8("""{"tokens_of": { "owner" : "${address}" }}"""), client, CONTRACT_ADDRESS);
