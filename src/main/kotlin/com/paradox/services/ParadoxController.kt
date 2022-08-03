@@ -5,6 +5,7 @@ import com.google.protobuf.ByteString
 import com.paradox.service.*
 import io.provenance.client.grpc.GasEstimationMethod
 import io.provenance.client.grpc.PbClient
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.net.URI
 import java.util.*
@@ -16,6 +17,8 @@ class ParadoxController {
     val CONTRACT_ADDRESS = "tp1jpuk5d0auylc7c7dkmds0auzadt7d39tw85fkudzs94y53mavvxs0jg5sr"
     val client = PbClient("pio-testnet-1", URI("grpcs://grpc.test.provenance.io:443"), GasEstimationMethod.MSG_FEE_CALCULATION)
     val gson = Gson()
+
+    private val logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/GetByToken/{token_id}")
     fun GetByToken(@PathVariable token_id: String): CurrentAskForTokenResponse {
@@ -36,8 +39,10 @@ class ParadoxController {
         return gson.fromJson(result, Array<MyMintMsg>::class.java);
     }
 
+    @CrossOrigin(origins = ["*"])
     @PostMapping
     fun Insert(@RequestBody invoice: InvoiceNTF): String {
+        logger.warn("LLEGO ESTOOO!!")
         val data = MintMsg (
                 MyMintMsg(
                         token_id = UUID.randomUUID().toString(),
@@ -50,6 +55,8 @@ class ParadoxController {
 
         val json:String = gson.toJson(data)
         val result =  bcExecute(ByteString.copyFromUtf8("""{"mint":{ "mint": ${json} }}"""), "century draft give hazard assault swing attract civil rescue enable model annual session alcohol income utility alley urge play stove silver practice stumble jewel", client, CONTRACT_ADDRESS);
+
+        logger.warn("TERMINOO ESTOOO!!")
 
         return result
     }
