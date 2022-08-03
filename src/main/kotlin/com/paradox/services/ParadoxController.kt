@@ -38,7 +38,6 @@ class ParadoxController {
         return gson.fromJson(result, Array<MyMintMsg>::class.java);
     }
 
-    @CrossOrigin
     @PostMapping
     fun Insert(@RequestBody invoice: InvoiceNTF): String {
         logger.warn("LLEGO ESTOOO!!")
