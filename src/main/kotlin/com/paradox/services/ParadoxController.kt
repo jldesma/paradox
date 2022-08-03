@@ -12,7 +12,6 @@ import java.util.*
 
 @RestController
 @RequestMapping("/api/blockchain")
-@CrossOrigin
 class ParadoxController {
     val CONTRACT_ADDRESS = "tp1jpuk5d0auylc7c7dkmds0auzadt7d39tw85fkudzs94y53mavvxs0jg5sr"
     val client = PbClient("pio-testnet-1", URI("grpcs://grpc.test.provenance.io:443"), GasEstimationMethod.MSG_FEE_CALCULATION)
@@ -39,7 +38,7 @@ class ParadoxController {
         return gson.fromJson(result, Array<MyMintMsg>::class.java);
     }
 
-    @CrossOrigin(origins = ["*"])
+    @CrossOrigin
     @PostMapping
     fun Insert(@RequestBody invoice: InvoiceNTF): String {
         logger.warn("LLEGO ESTOOO!!")
