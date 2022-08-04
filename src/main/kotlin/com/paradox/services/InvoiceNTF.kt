@@ -1,5 +1,10 @@
 package com.paradox.service
+
+import io.provenance.hdwallet.bip39.MnemonicWords
+
 data class Data(val data: Array<InvoiceNTF>) { }
+
+data class InvoiceViewModel(val invoice: InvoiceNTF,val mnemonic: String){}
 data class InvoiceNTF(
     val account_address: String,
     val invoice: Int,

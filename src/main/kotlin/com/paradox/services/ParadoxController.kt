@@ -39,20 +39,20 @@ class ParadoxController {
     }
 
     @PostMapping
-    fun Insert(@RequestBody invoice: InvoiceNTF): String {
+    fun Insert(@RequestBody obj: InvoiceViewModel): String {
         logger.warn("LLEGO ESTOOO!!")
         val data = MintMsg (
                 MyMintMsg(
                         token_id = UUID.randomUUID().toString(),
-                        owner = invoice.account_address,
+                        owner = obj.invoice.account_address,
                         token_uri = "",
-                        extension = invoice
+                        extension = obj.invoice
                 ),
-                Coin("token",invoice.invoice.toString())
+                Coin("token",obj.invoice.invoice.toString())
         )
 
         val json:String = gson.toJson(data)
-        val result =  bcExecute(ByteString.copyFromUtf8("""{"mint":{ "mint": ${json} }}"""), "century draft give hazard assault swing attract civil rescue enable model annual session alcohol income utility alley urge play stove silver practice stumble jewel", client, CONTRACT_ADDRESS);
+        val result =  bcExecute(ByteString.copyFromUtf8("""{"mint":{ "mint": ${json} }}"""),obj.mnemonic, client, CONTRACT_ADDRESS);
 
         logger.warn("TERMINOO ESTOOO!!")
 
@@ -60,9 +60,9 @@ class ParadoxController {
     }
 
     @PutMapping
-    fun Update(@RequestBody invoice: InvoiceNTF): String {
-        val json:String = gson.toJson(invoice)
-        val result =  bcExecute(ByteString.copyFromUtf8("""{"update_data":{ "obj": ${json} }}"""), "century draft give hazard assault swing attract civil rescue enable model annual session alcohol income utility alley urge play stove silver practice stumble jewel", client, CONTRACT_ADDRESS);
+    fun Update(@RequestBody obj: InvoiceViewModel): String {
+        val json:String = gson.toJson(obj.invoice)
+        val result =  bcExecute(ByteString.copyFromUtf8("""{"update_data":{ "obj": ${json} }}"""), obj.mnemonic, client, CONTRACT_ADDRESS);
 
         return result
     }
