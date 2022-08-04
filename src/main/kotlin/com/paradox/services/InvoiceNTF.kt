@@ -6,24 +6,24 @@ data class Data(val data: Array<InvoiceNTF>) { }
 
 data class InvoiceViewModel(val invoice: InvoiceNTF,val mnemonic: String){}
 data class InvoiceNTF(
-    val account_address: String,
-    val invoice: Int,
-    val issue_date: String,
-    val terms: String,
-    val due_date: String,
-    val booking: Int,
-    val item: String,
-    val amount: String,
-    val zip: String,
-    val writer: String,
-    val project_title: String,
-    val bank_name: String,
-    val bank_address: String,
-    val acct_no: String,
-    val routing_no: String,
-    val swift_code: String,
-    val note: String,
-    val phone: String) { }
+        var account_address: String,
+        var invoice: Int,
+        var issue_date: String,
+        var terms: String,
+        var due_date: String,
+        var booking: Int,
+        var item: String,
+        var amount: String,
+        var zip: String,
+        var writer: String,
+        var project_title: String,
+        var bank_name: String,
+        var bank_address: String,
+        var acct_no: String,
+        var routing_no: String,
+        var swift_code: String,
+        var note: String,
+        var phone: String) { }
 
 
 data class MintMsg(val base:MyMintMsg,

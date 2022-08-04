@@ -26,9 +26,12 @@ class ParadoxController {
         return gson.fromJson(result, CurrentAskForTokenResponse::class.java);
     }
 
-    @GetMapping("/Test/{token_id}")
-    fun Test(@PathVariable token_id: String): String {
-        return "Tomas"
+    @GetMapping("/Test/{mnemonic}")
+    fun Test(@PathVariable mnemonic: String): String {
+        val adminSigner = WalletSigner(NetworkType.TESTNET, mnemonic)
+        val addr = adminSigner.address()
+
+        return addr
     }
 
     @GetMapping("/GetByOwner/{address}")
@@ -41,10 +44,14 @@ class ParadoxController {
     @PostMapping
     fun Insert(@RequestBody obj: InvoiceViewModel): String {
         logger.warn("LLEGO ESTOOO!!")
+
+        val adminSigner = WalletSigner(NetworkType.TESTNET, obj.mnemonic)
+        obj.invoice.account_address = adminSigner.address()
+
         val data = MintMsg (
                 MyMintMsg(
                         token_id = UUID.randomUUID().toString(),
-                        owner = obj.invoice.account_address,
+                        owner = adminSigner.address(),
                         token_uri = "",
                         extension = obj.invoice
                 ),
