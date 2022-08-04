@@ -5,6 +5,7 @@ import com.google.protobuf.ByteString
 import com.paradox.service.*
 import io.provenance.client.grpc.GasEstimationMethod
 import io.provenance.client.grpc.PbClient
+import io.provenance.client.wallet.NetworkType
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -55,7 +56,7 @@ class ParadoxController {
                         token_uri = "",
                         extension = obj.invoice
                 ),
-                Coin("token",obj.invoice.invoice.toString())
+                Coin("token",obj.invoice.amount.toString())
         )
 
         val json:String = gson.toJson(data)

@@ -7,6 +7,7 @@ import cosmwasm.wasm.v1.Tx
 import io.provenance.client.grpc.BaseReqSigner
 import io.provenance.client.grpc.PbClient
 import io.provenance.client.protobuf.extensions.getBaseAccount
+import io.provenance.client.wallet.NetworkType
 
 fun bcExecute(data: ByteString, mnemonic: String, client: PbClient, CONTRACT_ADDRESS: String): String {
     val adminMnemonic = mnemonic;

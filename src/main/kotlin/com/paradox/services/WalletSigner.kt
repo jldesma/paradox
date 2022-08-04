@@ -13,6 +13,7 @@ import io.provenance.client.grpc.GasEstimationMethod
 import io.provenance.client.grpc.PbClient
 import io.provenance.client.grpc.Signer
 import io.provenance.client.protobuf.extensions.getBaseAccount
+import io.provenance.client.wallet.NetworkType
 import io.provenance.hdwallet.bip39.MnemonicWords
 import io.provenance.hdwallet.common.hashing.sha256
 import io.provenance.hdwallet.signer.BCECSigner
