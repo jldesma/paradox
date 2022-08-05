@@ -26,7 +26,8 @@ dependencies {
 			libs.kotlinStdLib,
 			libs.hdWallet,
 			libs.pbClient,
-			libs.provenanceProto
+			libs.provenanceProto,
+			libs.provenanceScopeUtil
 	).forEach(::implementation)
 }
 
