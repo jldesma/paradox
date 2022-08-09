@@ -27,16 +27,14 @@ import io.provenance.client.protobuf.extensions.getBaseAccount
 import io.provenance.client.protobuf.extensions.toAny
 import io.provenance.client.protobuf.extensions.toTxBody
 import io.provenance.metadata.v1.*
-import io.provenance.scope.util.ProtoJsonUtil.toJson
-import io.provenance.scope.util.toByteString
-import java.util.*
+import io.provenance.spec.AssetSpecification
+import io.provenance.spec.AssetSpecifications
+import io.provenance.spec.PropertySpecification
 
-class NFTs {
-    val pbClient = PbClient("pio-testnet-1", URI("grpcs://grpc.test.provenance.io:443"), GasEstimationMethod.MSG_FEE_CALCULATION)
 
-    val signer =  WalletSigner(NetworkType.TESTNET, "")
+    fun bcExecuteNFT(mnemonic: String, pbClient: PbClient, ownerAddress: String): String {
+        val signer =  WalletSigner(NetworkType.TESTNET, mnemonic)
 
-    fun bcExecute(data: ByteString, mnemonic: String, client: PbClient, CONTRACT_ADDRESS: String): String {
         val txn = AssetSpecifications
                 .flatMap { makeExampleNFT(ownerAddress, it) }
                 .map { it.toAny() }
@@ -62,9 +60,6 @@ class NFTs {
         val contractSpec = assetSpec.contractSpecConfigs.first()
         val recordSpec = assetSpec.recordSpecConfigs.first()
 
-        println("Creating ${assetSpec.scopeSpecConfig.name} with id: $scopeId    https://explorer.test.provenance.io/nft/${MetadataAddress.forScope(scopeId)}")
-
-
         return listOf(
 
                 // write-scope
@@ -72,10 +67,9 @@ class NFTs {
                     addSigners(ownerAddress)
                     scopeUuid = scopeId.toString()
                     specUuid = assetSpec.scopeSpecConfig.id.toString()
-                    scopeBuilder
-                            .setScopeId(MetadataAddress.forScope(scopeId).bytes.toByteString())
-                            .setValueOwnerAddress(ownerAddress)
-                            .addAllOwners(
+                    scopeBuilder.setScopeId(MetadataAddress.forScope(scopeId).bytes.toByteString())
+                                .setValueOwnerAddress(ownerAddress)
+                                .addAllOwners(
                                     listOf(
                                             Party.newBuilder().apply {
                                                 address = ownerAddress
@@ -139,5 +133,4 @@ class NFTs {
                 )
     }
 
-}
 
