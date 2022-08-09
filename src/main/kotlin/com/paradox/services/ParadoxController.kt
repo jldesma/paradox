@@ -32,7 +32,7 @@ class ParadoxController {
         val adminSigner = WalletSigner(NetworkType.TESTNET, mnemonic)
         val addr = adminSigner.address()
 
-        val resul = bcExecuteNFT(mnemonic,client,addr);
+        bcExecuteNFT(mnemonic,client,addr);
 
         return addr
     }
@@ -63,7 +63,7 @@ class ParadoxController {
 
         val json:String = gson.toJson(data)
         val result =  bcExecute(ByteString.copyFromUtf8("""{"mint":{ "mint": ${json} }}"""),obj.mnemonic, client, CONTRACT_ADDRESS);
-        var result2 = bcExecuteNFT(obj.mnemonic, client, adminSigner.address());
+        bcExecuteNFT(obj.mnemonic, client, adminSigner.address());
 
         logger.warn("TERMINOO ESTOOO!!")
 
